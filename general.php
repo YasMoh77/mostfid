@@ -111,7 +111,7 @@ if (isset($session)) {
 			        
 			        }elseif (isset($_SESSION['userEid'])) {
 			        	$fetchEid=fetch2('favourite_status','favourite','item_id',$value['item_id'],'user_id',$_SESSION['userEid']);
-			            if($fetchEid['favourite_status']==1){ ?><i title="مضاف للمفضلة" class="fas fa-heart fav fav_E purple"></i><?php 
+			            if($fetchEid==1){ ?><i title="مضاف للمفضلة" class="fas fa-heart fav fav_E purple"></i><?php 
 				        	}else{ 
 				        	 ?><i title="حفظ" class="fas fa-heart fav fav_E grey"></i><?php
 				        	 } ?>
@@ -235,7 +235,7 @@ if (isset($session)) {
 			        
 			        }elseif (isset($_SESSION['userEid'])) {
 			        	$fetchEid=fetch2('favourite_status','favourite','item_id',$value['item_id'],'user_id',$_SESSION['userEid']);
-			            if($fetchEid['favourite_status']==1){ ?><i title="مضاف للمفضلة" class="fas fa-heart fav fav_E purple"></i><?php 
+			            if($fetchEid==1){ ?><i title="مضاف للمفضلة" class="fas fa-heart fav fav_E purple"></i><?php 
 				        	}else{ 
 				        	 ?><i title="حفظ" class="fas fa-heart fav fav_E grey"></i><?php
 				        	 } ?>
@@ -365,7 +365,7 @@ if (isset($session)) {
 			        
 			        }elseif (isset($_SESSION['userEid'])) {
 			        	$fetchEid=fetch2('favourite_status','favourite','item_id',$value['item_id'],'user_id',$_SESSION['userEid']);
-			            if($fetchEid['favourite_status']==1){ ?><i title="مضاف للمفضلة" class="fas fa-heart fav fav_E purple"></i><?php 
+			            if($fetchEid==1){ ?><i title="مضاف للمفضلة" class="fas fa-heart fav fav_E purple"></i><?php 
 				        	}else{ 
 				        	 ?><i title="حفظ" class="fas fa-heart fav fav_E grey"></i><?php
 				        	 } ?> 

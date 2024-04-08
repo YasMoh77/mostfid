@@ -68,55 +68,56 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
 			</thead>
 			<tbody>
          <?php
-        
+        $total=0;
          foreach ($_SESSION['cart'] as $key => $val ) {  
-          //google comers who have no data are refused to place orders
-          $fetchbuyer=fetch('*','user','user_id',$session); 
-          if ($fetchbuyer['country_id']==null || $fetchbuyer['state_id']==null || $fetchbuyer['city_id']==null) {
-           $_SESSION['comingFromOrderPage']=$key;
-           ?><script>location.href='action-us.php?u=edit-us&id=<?php echo $session?>';</script> <?php
-           } 
+                    //google comers who have no data are refused to place orders
+                    $fetchbuyer=fetch('*','user','user_id',$session); 
+                    if ($fetchbuyer['country_id']==null || $fetchbuyer['state_id']==null || $fetchbuyer['city_id']==null) {
+                     $_SESSION['comingFromOrderPage']=$key;
+                     ?><script>location.href='action-us.php?u=edit-us&id=<?php echo $session?>';</script> <?php
+                     } 
 
-          // 
-      $ITEMS=items('items.item_id',$key); 
-      foreach ($ITEMS[0] as  $item) {  
-      //price after discount
-      $ratio=$item['price']*($item['discount']/100);
-      $finalPrice1=round($item['price']-$ratio);
-      $finalPrice=$finalPrice1;
-      
-         ?>
-				<tr>
-					<td class="cut2 title"><?php echo $item['title']?></td>
-					<td><input type="text" class="final" value="<?php echo $finalPrice ?>" disabled><?php// echo $finalPrice ?></td>
-          <td>
-          <?php if( ($item['cat_id']!=7&&$item['cat_id']!=8&&$item['cat_id']<12)||$item['subcat_id']==52||$item['subcat_id']==57||$item['subcat_id']==62||$item['subcat_id']==64||$item['subcat_id']==65){ ?>
-                <select class="pickNum" name="num[]"> 
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
-          <?php  }else{ ?><input type="hidden" name="num[]" value="1"><span>-</span> <?php }
-           
-           ?> 
-           </td>
-          <td class="total"><?php echo $finalPrice ?></td>
-					<td><a href="?id=<?php echo $key; ?>&remove=<?php echo $key.$link;?>"><i class="fas fa-trash red2"></i></a></td>
-				 
-        </tr>
-        <?php 
-            //<!-- hidden values -->
-            /* fetch trader phone */
-           $trPhone=fetch('phone','user','user_id',$item['user_id']); 
-           ?>
-        <input type="hidden" name="trader[]" value="<?php echo $item['user_id']?>">
-        <input type="hidden" name="traderPhone[]" value="<?php echo $trPhone['phone']?>">
-        <input type="hidden" name="item[]" value="<?php echo $item['item_id']?>">
-        <input type="hidden" name="cat[]" value="<?php echo $item['cat_id']?>">
-        <input type="hidden" name="sub[]" value="<?php echo $item['subcat_id']?>">
-        <?php  }  }  /*}else{ ?> <div class="height centered font-med above-lg">لا توجد طلبات  شراء </div><?php }*/ // END foreach & foreach ?>
+                    // 
+                $ITEMS=items('items.item_id',$key); 
+                foreach ($ITEMS[0] as  $item) {  
+                          //price after discount
+                          $ratio=$item['price']*($item['discount']/100);
+                          $finalPrice1=round($item['price']-$ratio);
+                          $finalPrice=$finalPrice1;
+                          
+                             ?>
+                    				<tr>
+                    					<td class="cut2 title"><?php echo $item['title']?></td>
+                    					<td><input type="text" class="final" value="<?php echo $finalPrice ?>" disabled><?php// echo $finalPrice ?></td>
+                              <td>
+                              <?php if( ($item['cat_id']!=7&&$item['cat_id']!=8&&$item['cat_id']<12)||$item['subcat_id']==52||$item['subcat_id']==57||$item['subcat_id']==62||$item['subcat_id']==64||$item['subcat_id']==65){ 
+                                   
+                                 ?><input type="text" class="pickNum width10" name="num[]" value="<?php echo $val['q']; ?>" readonly> <?php
+                                   
+                               }else{ ?><input type="hidden" name="num[]" value="1"><span>-</span> <?php }
+                               
+                               ?> 
+                               </td>
+                              <td class="total"><?php echo $finalPrice*$val['q'] ?></td>
+                    					<td><a href="?id=<?php echo $key; ?>&remove=<?php echo $key.$link;?>"><i onclick="return confirm('هل ترغب في الحذف؟')" class="fas fa-trash red2"></i></a></td>
+                    				 
+                            </tr>
+                            <?php 
+                                //<!-- hidden values -->
+                                /* fetch trader phone */
+                               $trPhone=fetch('phone','user','user_id',$item['user_id']); 
+                               ?>
+                            <input type="hidden" name="trader[]" value="<?php echo $item['user_id']?>">
+                            <input type="hidden" name="traderPhone[]" value="<?php echo $trPhone['phone']?>">
+                            <input type="hidden" name="item[]" value="<?php echo $item['item_id']?>">
+                            <input type="hidden" name="cat[]" value="<?php echo $item['cat_id']?>">
+                            <input type="hidden" name="sub[]" value="<?php echo $item['subcat_id']?>">
+                  <?php  }  
+                            $total+=$finalPrice*$val['q'];
+      }  /*}else{ ?> <div class="height centered font-med above-lg">لا توجد طلبات  شراء </div><?php }*/ // END foreach & foreach ?>
       </tbody>
 		</table>
+    <div class="solid orange"><span>الاجمالي =  <span class="red"><?php echo $total; ?></span> ج.م. </span></div>
 	</section> 
 	 <div class="prog">
     <span>أدخل كود الاحالة  (اختياري ) </span><input type="text"  name="prog" autocomplete="off" >
@@ -141,16 +142,6 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
                       <input class="input-plan"  type="text" name="phone" value="<?php echo '0'.$fetchbuyer['phone']?>" readonly>
                       </div>
                   </div><br>
-
-                  <!-- country --> 
-                  <!--<div class="div-pl2">
-                      <div class="first"><label class="input-lbl"><?php echo $lang['country']?></label><span class="red2">*</span></div>
-                       <div class="second">
-                        <select class="input-plan" id="country" name="country">
-                          <option value="<?php echo $fetchbuyer['country_id']?>"><?php echo $buyer['country_nameAR']?></option>
-                        </select>
-                       </div>
-                  </div><br>-->
 
                   <!-- state --> 
                   <div class="div-pl2">
@@ -215,11 +206,11 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
         
         //ajax 
         $(".pickNum").on("change", function(){
-           var num=$(this).val();
+          /* var num=$(this).val();
            var final=$(this).closest('td').prev('td').find('.final').val();
            $(this).closest('td').next().html(final);
            var total=final*num;
-           $(this).closest('td').next().html(total);
+           $(this).closest('td').next().html(total);*/
           
         });
 

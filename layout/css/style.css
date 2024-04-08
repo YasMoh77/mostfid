@@ -6012,6 +6012,9 @@ display: none;
 .relative{
   position: relative;
 }
+.width10{
+  width: 10%;
+}
 .red{
     color: #ed0c6a;
     font-size: 2.2vw;  
@@ -6219,6 +6222,9 @@ display: none;
 }
 .dotted{
     border:dotted;
+}
+.solid{
+    border:solid;
 }
 .cut2{
   White-space :nowrap; 
