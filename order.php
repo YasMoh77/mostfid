@@ -185,9 +185,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id']>0 ) {
               //$link='&t=i&main=v';
              ?><i class="fas fa-plus"><a href="service.php"></i> اضافة المزيد من الطلبات  </a><?php 
            }
-        } ?>
+        } ?> 
+         <i class="fas fa-plus"><a href="index.php"></i> اضافة المزيد من الطلبات  </a> 
        </div>
-      	<div class="empty" ><i class="fas fa-times"><a href="order.php?id=<?php echo $key.'&empty=e'.$link; ?>"></i> الغاء جميع الطلبات  </a></div>
+      	<div class="empty" ><i class="fas fa-times"><a href="order.php?id=<?php echo $key.'&empty=e'/*.$link*/; ?>"></i> الغاء جميع الطلبات  </a></div>
         <div><i class="fas fa-check"></i><a href="cart.php?d=fulfil<?php //echo $link; ?>"> التقدم لاتمام الطلب  </a></div>
     </div><!-- end flex -->
 	</div>

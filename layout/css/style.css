@@ -2132,12 +2132,14 @@ section .a-phone{
 .general section form{
   display: flex;
   justify-content: space-between;
-  height: 8vh;
+  height: 7vh;
 }
 .general section form input{
  width: 17%;
  border-radius: .5vw;
  height: inherit;
+ background: lightgray;
+ border: none;
 }
 .general section form button{
  width: 81%;

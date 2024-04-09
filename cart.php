@@ -99,7 +99,7 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
                                ?> 
                                </td>
                               <td class="total"><?php echo $finalPrice*$val['q'] ?></td>
-                    					<td><a href="?id=<?php echo $key; ?>&remove=<?php echo $key.$link;?>"><i onclick="return confirm('هل ترغب في الحذف؟')" class="fas fa-trash red2"></i></a></td>
+                    					<td><a href="?id=<?php echo $key; ?>&remove=<?php echo $key/*.$link*/;?>"><i onclick="return confirm('هل ترغب في الحذف؟')" class="fas fa-trash red2"></i></a></td>
                     				 
                             </tr>
                             <?php 
