@@ -81,7 +81,7 @@ if (isset($session)) {
 		if (!empty($itemsGET)) { ?>
 		<div class="inner"> 
 		<span class="head">المنتجات الأكبر  خصما </span>
-		  <div class="items-container items-container-profile"> <?php
+		  <div class="items-container items-container-profile general"> <?php
 			foreach ($itemsGET as $value) { 
 				$ratio=$value['price']*($value['discount']/100);
                 $finalPrice=number_format(round($value['price']-$ratio) ) ;
@@ -152,11 +152,13 @@ if (isset($session)) {
 		 						    <span class="currency">ج.م.</span>
 		 						</span>
 		 					</div>
-	 						<?php
+	 						<?php 
 		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-		 					 	?> <a class="a-phone" title="تقديم طلب شراء "  href="order.php?id=<?php echo $value['item_id']?>&t=i&main=g&q=1"><i class="fas fa-phone"></i></a> <?php
-		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) {
-		 						?> <a class="a-phone" title="اطلب شراء المنتج " href="order.php?id=<?php echo $value['item_id']?>&t=i&main=g"><i class="fas fa-phone"></i></a> <?php
+		 					 	?> <form action="order.php" method="GET"><input type="number" name="q" min="1" max="10"><button class='a-phone no-margin initial' type="submit"><input type="hidden" name="id" value="<?php echo $value['item_id']?>"><i class="fas fa-phone"></i></button></form>
+		 					 	<!--<a class="a-phone" title="تقديم طلب شراء "  href="order.php?id=<?php echo $value['item_id']?>&t=i&main=g&q=1"><i class="fas fa-phone"></i></a>--> <?php
+		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) { 
+		 						?><form action="order.php" method="GET"><input type="number" name="q" min="1" max="10"><button class='a-phone no-margin initial' type="submit"><input type="hidden" name="id" value="<?php echo $value['item_id']?>"><i class="fas fa-phone"></i></button></form> 
+		 						<!--<a class="a-phone" title="اطلب شراء المنتج " href="order.php?id=<?php echo $value['item_id']?>&t=i&main=g&q=1"><i class="fas fa-phone"></i></a>--> <?php
 		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
 		 						?> <a class="a-phone"><i class="fas fa-phone"></i></a> <?php
 		 					}else{ //appears as empty link for traders
@@ -205,7 +207,7 @@ if (isset($session)) {
 		if (!empty($itemsGET)) { ?>
 		<div class="inner">
 		<span class="head">المنتجات  الأحدث اضافة </span>
-		  <div class="items-container items-container-profile"> <?php
+		  <div class="items-container items-container-profile general"> <?php
 			foreach ($itemsGET as $value) { 
 				$ratio=$value['price']*($value['discount']/100);
                 $finalPrice=number_format(round($value['price']-$ratio) ) ;
@@ -330,7 +332,7 @@ if (isset($session)) {
 		if (!empty($itemsGET)) { ?>
 		<div class="inner inner-last">
 			<span class="head">المنتجات   الأكثر  مشاهدة </span>
-		  <div class="items-container items-container-profile"> <?php
+		  <div class="items-container items-container-profile general"> <?php
 			foreach ($itemsGET as $value) { 
 				$ratio=$value['price']*($value['discount']/100);
                 $finalPrice=number_format(round($value['price']-$ratio) ) ;

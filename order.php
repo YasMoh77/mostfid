@@ -17,7 +17,7 @@ if ($session) {
 
 if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id']>0 ) {
 	$id=intval($_GET['id']);
-  $q=isset($_GET['q']);
+  $q=isset($_GET['q'])&&$_GET['q']>0?$_GET['q']:1;
 	$ITEMS=items('items.item_id',$id);   
   
   
@@ -42,9 +42,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id']>0 ) {
      /////session cart
   if (isset($_SESSION['cart'][$id])) {
        $prev=$_SESSION['cart'][$id]['q'];
-       $_SESSION['cart'][$id]=array('id'=>$id,'q'=>$prev+=1);
+       $_SESSION['cart'][$id]=array('id'=>$id,'q'=>$prev+$q);
+       echo 'q='.$_SESSION['cart'][$id]['q'];
     }else{
-      $_SESSION['cart'][$id]=array('id'=>$id,'q'=>1);
+      $_SESSION['cart'][$id]=array('id'=>$id,'q'=>$q);
+       echo 'qnew='.$_SESSION['cart'][$id]['q'];
     }
   
   
@@ -53,7 +55,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id']>0 ) {
 ?>
 <div class="order-main"> <?php  
   ////////////////////// 
-         if (isset($_GET['t'])&&$_GET['t']=='s' ) { ?>
+        /* if (isset($_GET['t'])&&$_GET['t']=='s' ) { ?>
           <div class="above-details-main">
             <?php if(isset($_GET['main'])&&$_GET['main']=='g' ){ 
               $link='&t=s&main=g';
@@ -87,7 +89,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id']>0 ) {
       <?php }else{
                      header('location:logout.php?s=no');
                      exit();
-                } 
+                } */
 
 
 
@@ -145,7 +147,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id']>0 ) {
             }else{ ?><td> ــــ </td> <?php }
            ?>
            <!--<td><input class="number" type="number" name="num[]" value="1" min="1" max="3"></td>-->
-          <td class="remove"><a href="order.php?id=<?php echo $key; ?>&remove=<?php echo $key.$link; ?>" ><i class="fas fa-trash"></i></a></td>
+          <td class="remove"><a href="order.php?id=<?php echo $key; ?>&remove=<?php echo $key/*.$link*/; ?>" ><i class="fas fa-trash"></i></a></td>
 				</tr>
         <?php $n++; 
             //<!-- hidden values -->
@@ -168,25 +170,25 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id']>0 ) {
         <div><?php //the 3 links below table
         if (isset($_GET['t'])&&$_GET['t']=='s' ) { //coming from search page 
            if (isset($_GET['main'])&&$_GET['main']=='g' ) {
-             $link='&t=s&main=g';
+            // $link='&t=s&main=g';
              ?><i class="fas fa-plus"></i><a href="search.php?cat=0&state=0&ordering=1&main=g"> اضافة المزيد من الطلبات  </a> <?php
            }elseif (isset($_GET['main']) && $_GET['main']=='v') {
-              $link='&t=s&main=v';
+              //$link='&t=s&main=v';
              ?><i class="fas fa-plus"></i><a href="search-v.php?cat=0&state=0&ordering=1&main=v"> اضافة المزيد من الطلبات  </a><?php
            }
 
         }elseif (isset($_GET['t'])&&$_GET['t']=='i' ) { //coming from homepage 
           if (isset($_GET['main'])&&$_GET['main']=='g' ) {
-              $link='&t=i&main=g';
+             // $link='&t=i&main=g';
              ?><i class="fas fa-plus"><a href="general.php"></i> اضافة المزيد من الطلبات  </a> <?php
            }elseif (isset($_GET['main']) && $_GET['main']=='v') {
-              $link='&t=i&main=v';
+              //$link='&t=i&main=v';
              ?><i class="fas fa-plus"><a href="service.php"></i> اضافة المزيد من الطلبات  </a><?php 
            }
         } ?>
        </div>
       	<div class="empty" ><i class="fas fa-times"><a href="order.php?id=<?php echo $key.'&empty=e'.$link; ?>"></i> الغاء جميع الطلبات  </a></div>
-        <div><i class="fas fa-check"></i><a href="cart.php?d=fulfil<?php echo $link; ?>"> التقدم لاتمام الطلب  </a></div>
+        <div><i class="fas fa-check"></i><a href="cart.php?d=fulfil<?php //echo $link; ?>"> التقدم لاتمام الطلب  </a></div>
     </div><!-- end flex -->
 	</div>
 </div>

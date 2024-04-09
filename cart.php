@@ -116,7 +116,7 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
                             $total+=$finalPrice*$val['q'];
       }  /*}else{ ?> <div class="height centered font-med above-lg">لا توجد طلبات  شراء </div><?php }*/ // END foreach & foreach ?>
       </tbody>
-		</table>
+		</table> 
     <div class="solid orange"><span>الاجمالي =  <span class="red"><?php echo $total; ?></span> ج.م. </span></div>
 	</section> 
 	 <div class="prog">

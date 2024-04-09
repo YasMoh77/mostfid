@@ -2129,11 +2129,28 @@ section .a-phone{
  /*padding: 1vh 0;*/
  text-decoration: none;
 }
+.general section form{
+  display: flex;
+  justify-content: space-between;
+  height: 8vh;
+}
+.general section form input{
+ width: 17%;
+ border-radius: .5vw;
+ height: inherit;
+}
+.general section form button{
+ width: 81%;
+ display: initial;
+ margin: 0;
+ height: inherit;
+ border: none;
+}
+
 .items-container section .fa-phone,
 section .fa-phone{
   font-size: 2.2vw;
   color: white;
-  padding: 2vh 0;
   background: #269fcd;
   background: #4492b8;
   background: #205d7b;
@@ -2142,6 +2159,7 @@ section .fa-phone{
   width: fit-content;
   margin: 0 auto;
 }
+
 .items-container section .bottom-div,
 section .bottom-div{
   margin-top: 7.5vh;
@@ -6205,6 +6223,12 @@ display: none;
 }
 .left-special{
    margin-left: 19vw; 
+}
+.no-margin{
+  margin: 0;
+}
+.initial{
+  display: initial;
 }
 .back-gr-grey{
     background: green
