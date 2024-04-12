@@ -46,8 +46,8 @@ if (isset($session)) {
 </section>
 
 
-
-<div class="icons"><!--<img src="layout/images/perfume2.png">-->
+<!--?????????????????????????-->
+<div class="icons">tyttt<!--<img src="layout/images/perfume2.png">-->
 	<div class="con"><a href="search.php?cat=1&state=0&ordering=1&main=g"><i class="fas fa-hamburger"></i></a> <p>طعام </p></div>
 	<div class="con"><a href="search.php?cat=2&state=0&ordering=1&main=g"><i class="fas fa-tv"></i></a> <p>أجهزة </p></div>
 	<div class="con"><a href="search.php?cat=3&state=0&ordering=1&main=g"><i class="fas fa-couch"></i></a> <p>لوازم المنزل </p></div>
@@ -154,11 +154,9 @@ if (isset($session)) {
 		 					</div>
 	 						<?php 
 		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-		 					 	?> <form action="order.php" method="GET"><input type="number" name="q" min="1" max="10"><button class='a-phone no-margin initial' type="submit"><input type="hidden" name="id" value="<?php echo $value['item_id']?>"><i class="fas fa-phone"></i></button></form>
-		 					 	<!--<a class="a-phone" title="تقديم طلب شراء "  href="order.php?id=<?php echo $value['item_id']?>&t=i&main=g&q=1"><i class="fas fa-phone"></i></a>--> <?php
+		 					 	?><hr><?php
 		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) { 
-		 						?><form action="order.php" method="GET"><input type="number" name="q" min="1" max="10"><button class='a-phone no-margin initial' type="submit"><input type="hidden" name="id" value="<?php echo $value['item_id']?>"><i class="fas fa-phone"></i></button></form> 
-		 						<!--<a class="a-phone" title="اطلب شراء المنتج " href="order.php?id=<?php echo $value['item_id']?>&t=i&main=g&q=1"><i class="fas fa-phone"></i></a>--> <?php
+		 						?><hr><?php
 		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
 		 						?> <a class="a-phone"><i class="fas fa-phone"></i></a> <?php
 		 					}else{ //appears as empty link for traders
@@ -279,11 +277,11 @@ if (isset($session)) {
 		 						    <span>ج.م.</span>
 		 						</span>
 		 					</div>
-	 						<?php
+	 						<?php 
 		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-		 					 	?> <a class="a-phone" title="تقديم طلب شراء " href="order.php?id=<?php echo $value['item_id']?>&t=i&main=g"><i class="fas fa-phone"></i></a> <?php
-		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) {
-		 						?> <a class="a-phone" title="اطلب شراء المنتج " href="order.php?id=<?php echo $value['item_id']?>&t=i&main=g"><i class="fas fa-phone"></i></a> <?php
+		 					   ?><hr><?php
+		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) { 
+		 					  ?><hr><?php
 		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
 		 						?> <a class="a-phone"><i class="fas fa-phone"></i></a> <?php
 		 					}else{ //appears as empty link for traders
@@ -409,15 +407,15 @@ if (isset($session)) {
 		 						    <span>ج.م.</span>
 		 						</span>
 	 					    </div>
-	 						<?php
+	 						<?php 
 		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-		 					 	?> <a class="a-phone" title="تقديم طلب شراء " href="order.php?id=<?php echo $value['item_id']?>&t=i&main=g"><i class="fas fa-phone"></i></a> <?php
-		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid']) ) {
-		 						?> <a class="a-phone" title="اطلب شراء المنتج " href="order.php?id=<?php echo $value['item_id']?>&t=i&main=g"><i class="fas fa-phone"></i></a> <?php
+		 					 	?><hr><?php
+		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) { 
+		 						?><hr><?php
 		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
 		 						?> <a class="a-phone"><i class="fas fa-phone"></i></a> <?php
 		 					}else{ //appears as empty link for traders
-		 					 	?> <a class="a-phone" href="login.php"><i class="fas fa-phone"></i></a> <?php 
+		 					 	?> <a class="a-phone" href="login.php"><i class="fas fa-phone"></i></a> <?php
 		 					} ?>
 	 					 <div class="bottom-div">
 		 					<span class="alone small"><?php echo getCountry($fetchCont['country_id']).'/'.$value['state_nameAR'].'/'.$value['city_nameAR'];?></span>
@@ -514,9 +512,10 @@ if (isset($session)) {
 
 <!--     FROM DATABASE -->
 <div>
-	
+	     
+</div>
 
-</div><?php
+<?php
 	//counter eye to count page visits
 	include 'counter.php';
 	echo '<span class="eye-counter" id="'.$_SESSION['counterGeneral'].'"></span>'; 

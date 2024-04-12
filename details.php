@@ -107,7 +107,7 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 			        	$session1=isset($_SESSION['userEid'])?$_SESSION['userEid']:$_SESSION['userGid']; 
 			        	$session=isset($_SESSION['userFid'])?$_SESSION['userFid']:$session1; 
 			        	$fetchEid=fetch2('favourite_status','favourite','item_id',$item['item_id'],'user_id',$session);
-			            if($fetchEid['favourite_status']==1){ ?><i title="مضاف للمفضلة" class="fas fa-heart fav fav_E purple"></i><?php 
+			            if($fetchEid==1){ ?><i title="مضاف للمفضلة" class="fas fa-heart fav fav_E purple"></i><?php 
 				        	}else{ 
 				        	 ?><i title="حفظ" class="fas fa-heart fav fav_E grey"></i><?php
 				        	 } ?> 
@@ -150,7 +150,7 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 
 
 		   	 	   <!--//////////////////////////////-->
-		   	 		<!--<img src="data\upload\<?php //echo $item['photo'] ?>" alt="<?php echo $item['title'] ?>">-->
+		   	 		<!--<img src="data\upload\<?php //echo $item['photo'] ?>" alt="<?php //echo $item['title'] ?>">-->
 		   	 	</div>
 		   	 	<div class="details-main-son dt-left">
 		   	 		<p><?php echo $item['cat_nameAR'].' > '.$item['subcat_nameAR'] ?></p>
@@ -185,15 +185,33 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 		 					if (isset($session)) { $fetchB=fetch2('block','user','user_id',$session,'block',1); }
 		 					if (!isset($_GET['source'])) { //if there's preview from cpanel
 		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$item['user_id'] ) { //appears as a link for users
-		 					 	?> <a class="widest" title="تقديم طلب شراء " href="order.php?id=<?php echo $item['item_id']; if($pr==1){ echo '&t=s&main=g';}elseif($pr2==1){ echo '&t=s&main=v';}elseif($pr3==1){ echo '&t=i&main=g';}elseif($pr4==1){ echo '&t=i&main=v';}elseif($pr5==1){ echo '&t=p&main=p';}elseif($pr6==1){ echo '&t=admin&main=admin';}?>&q=1"><i class="fas fa-phone"></i></a><?php
+                                ?><div class="flex j-c-s-b above-sm" > <input class="b-none radius-sm" id="q" class="radius-sm" type="number" name="q" min="1" max="10"><a id="link" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="staticBackdrop" class="widest" title="تقديم طلب شراء " href="<?php //echo $item['item_id']; if($pr==1){ echo '&t=s&main=g';}elseif($pr2==1){ echo '&t=s&main=v';}elseif($pr3==1){ echo '&t=i&main=g';}elseif($pr4==1){ echo '&t=i&main=v';}elseif($pr5==1){ echo '&t=p&main=p';}elseif($pr6==1){ echo '&t=admin&main=admin';}?>"><i class="fas fa-phone"></i></a></div> <?php
 		 					}elseif (isset($_SESSION['userEid']) ||isset($_SESSION['userGid']) ||isset($_SESSION['userFid']) ) {
-		 						?> <a class="widest" title="تقديم طلب شراء " href="order.php?id=<?php echo $item['item_id']; if($pr==1){ echo '&t=s&main=g';}elseif($pr2==1){ echo '&t=s&main=v';}elseif($pr3==1){ echo '&t=i&main=g';}elseif($pr4==1){ echo '&t=i&main=v';}elseif($pr5==1){ echo '&t=p&main=p';}elseif($pr6==1){ echo '&t=admin&main=admin';}?>&q=1"><i class="fas fa-phone"></i></a> <?php
+		 						?><div class="flex j-c-s-b above-sm" > <input class="b-none radius-sm" id="q" class="radius-sm" type="number" name="q" min="1" max="10"><a id="link" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="staticBackdrop" class="widest" title="تقديم طلب شراء " href="<?php //echo $item['item_id']; if($pr==1){ echo '&t=s&main=g';}elseif($pr2==1){ echo '&t=s&main=v';}elseif($pr3==1){ echo '&t=i&main=g';}elseif($pr4==1){ echo '&t=i&main=v';}elseif($pr5==1){ echo '&t=p&main=p';}elseif($pr6==1){ echo '&t=admin&main=admin';}?>"><i class="fas fa-phone"></i></a></div> <?php
 		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$item['user_id']) {
 		 						?> <a class="widest"><i class="fas fa-phone"></i></a> <?php
-		 					}else{ 
+		 					}else{  
 		 					 	?> <a class="widest" href="login.php"><i class="fas fa-phone"></i></a> <?php
 		 					} }else{ echo $lang['cpPreview'];} //END if cpanel preview ?>
 		   	 	</div>
+		   	 	     <!-- start offcanvas cart -->
+                     <div class="offcanvas radius-sm" data-bs-backdrop="static" tabindex="-1" id="cart" aria-labelledby="staticBackdropLabel"> 
+		                  <div class="offcanvas-header offcanvas-header-report">
+		                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		                        <span class=" msg-to cut2"><?php echo $item['title'];?></span>
+		                  </div>
+		                  <div class="">
+	                        <span class="report-reason showQnty right"></span>
+
+			   	    	  	<form  action="cart.php" method="GET">
+			   	    	  		<input  type="hidden" id="qForm" name="q">
+			   	    	  		<input  type="hidden" id="qSess" value="<?php if(isset($_SESSION['cart'][$item['item_id']])){ echo $_SESSION['cart'][$item['item_id']]['q'];}?>" name="qSess">
+			   	    	  		<input type="hidden" name="id" value="<?php echo $item['item_id']?>">
+				   	    	  	<button type="submit" class="btn-canvas-msg btnCart radius-sm"><?php echo 'الذهاب الى السلة ';?></button>
+			   	    	  	</form>
+	                      </div>
+	                 </div>
+                  // <!-- end offcanvas cart -->
 		   	 </div>
 		   	 <?php
 		   	 if (isset($_SESSION['traderid'])) { $session=$_SESSION['traderid']; } //trader
@@ -204,7 +222,7 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
              if (isset($session) && $session!=$item['user_id'] ) { 
              	$fetchReportVal=fetch2('value','report','item_id',$item['item_id'],'user_id',$session);
                  ?>
-                 <!-- start offcanvas to report item -->
+                     <!-- start offcanvas to report item -->
                      <div class="offcanvas" data-bs-scroll="true" tabindex="-1" id="canvasReport" aria-labelledby="offcanvasWithBothOptionsLabel"> 
 		                  <div class="offcanvas-header offcanvas-header-report">
 		                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -221,17 +239,17 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 				   	    	  	<input type="hidden" name="item" value="<?php echo $item['item_id'];?>"><!-- item_id -->
 				   	    	  	<input type="text" class="input-report report-dt" name="txtReport" placeholder="<?php echo $lang['reportReason']?>" autocomplete="off">
                                  <?php // t=s or t=i
-                                 if($fetchReportVal['value']==null){  ?><input type="hidden" name="reportVal" value="0"><!-- report value --> <?php }
+                                 if($fetchReportVal==null){  ?><input type="hidden" name="reportVal" value="0"><!-- report value --> <?php }
                                   else{ ?><input type="hidden" name="reportVal" value="1"> <?php }
                                  ?>
 				   	    	  	<button type="submit" class="btn-canvas-msg   btn-canvas-report"><?php echo $lang['send']?></button>
 				   	    	  	<span class="show-return-report"></span>
 			   	    	  	</form>
 	                      </div>
-	               </div><?php
+	                 </div><?php
                   // <!-- end offcanvas to report item--> 
 
-                 if (!isset($_GET['source'])) { if($fetchReportVal['value']==null){ ?><a  class="report-detail" data-bs-toggle="offcanvas" data-bs-target="#canvasReport" aria-controls="canvasReport">بلغ عن هذا الاعلان  </a> <?php } }else{ echo "cpPreview";}
+                 if (!isset($_GET['source'])) { if($fetchReportVal==null){ ?><a  class="report-detail" data-bs-toggle="offcanvas" data-bs-target="#canvasReport" aria-controls="canvasReport">بلغ عن هذا الاعلان  </a> <?php } }else{ echo "cpPreview";}
                  	
                  
               
@@ -264,7 +282,22 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 		             }
 		           });
 		         });
-		          //
+		          //send quantity to cart
+		          $('#link').click(function(){
+		          	var sessQnty=$('#qSess').val();
+		          	var q=$('#q').val();
+		          	var formQnty=$('#qForm').val($('#q').val());
+		          	var tot=Number(sessQnty)+ Number(q);
+		          	console.log(tot);
+		          	if (sessQnty>=10||tot >10) {
+		          		$('.btnCart').hide();
+		          		$('.showQnty').html('لا يمكن اضافة اكثر من 10 طلبات ');
+		          	}else{
+		          		$('.btnCart').show();
+		          		$('.showQnty').html('تمت الاضافة الى سلة المشتريات  ');
+		          	}
+		          	
+		          });
 
 
 		          });

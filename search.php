@@ -21,7 +21,7 @@ if (isset($session)) {
   ?><div class="main-div"> 
     <div>
       <p class=" right">
-        <a class="main-link" href="general.php">الرئيسية  </a> >  <span>بحث  </span>
+        <a class="main-link" href="index.php">الرئيسية  </a> >  <span>بحث  </span>
       </p>
     </div>
     <div class="outer-container">
@@ -30,10 +30,10 @@ if (isset($session)) {
         <form  id="formAside">
         <select class="rightx" name="cat">
       <?php
-        $stmt=$conn->prepare(" SELECT * from categories WHERE cat_id<11 ");  
+        $stmt=$conn->prepare(" SELECT * from categories /*WHERE cat_id<11*/ ");  
         $stmt->execute();$cats=$stmt->fetchAll();
         if (!empty($cats)) {
-          ?> <option value="0">جميع الأقسام</option> <?php
+          ?> <option value="0">اختر قسم  </option> <?php
              foreach ($cats as $cat) { ?>
           <option value="<?php echo $cat['cat_id']?>"><?php echo $cat['cat_nameAR'];?></option>
         <?php } } ?>
@@ -43,7 +43,7 @@ if (isset($session)) {
           $stmt=$conn->prepare(" SELECT * from state where country_id=1  ");  
           $stmt->execute();$states=$stmt->fetchAll();
           if (!empty($states)) {
-            ?> <option value="0">جميع المحافظات  </option> <?php
+            ?> <option value="0">اختر محافظة  </option> <?php
               foreach ($states as $state) { ?>
             <option value="<?php echo $state['state_id']?>"><?php echo $state['state_nameAR'];?></option>
           <?php } } ?>
@@ -63,7 +63,8 @@ if (isset($session)) {
         //if request comes from aside in search page
       ?><div class="aside-son-container"><?php
        
-           $CAT=isset($_GET['cat'])&&is_numeric($_GET['cat'])&&$_GET['cat']<11&&$_GET['cat']>0?intval($_GET['cat']):0;
+         $CAT=isset($_GET['cat'])&&is_numeric($_GET['cat'])/*&&$_GET['cat']<11*/&&$_GET['cat']>0?intval($_GET['cat']):0;
+           $s=isset($_GET['s'])&&$_GET['s']=='s'?'s':'p';
            $STATE=isset($_GET['state'])&&is_numeric($_GET['state'])&&$_GET['state']<28&&$_GET['state']>0?intval($_GET['state']):0;
            $ORDERING=isset($_GET['ordering'])&&is_numeric($_GET['ordering'])&&$_GET['ordering']<4&&$_GET['ordering']>0?intval($_GET['ordering']):1;
           if ($ORDERING==1) {
@@ -76,9 +77,8 @@ if (isset($session)) {
             $ordering='ORDER BY discount desc';
           }
 
-          $mostafeed='مستفيد منتجات  ';
           ////////////////////
-
+          $query=$s=='s'?'and categories.cat_id>10':'and categories.cat_id<11';
 
            if ($CAT>0&&$STATE>0) {
             //count items
@@ -89,12 +89,12 @@ if (isset($session)) {
              JOIN country     ON items.country_id=country.country_id
              JOIN state       ON items.state_id=state.state_id
              JOIN city        ON items.city_id=city.city_id
-          WHERE items.cat_id=? and items.state_id=? and items.approve>0 and items.hide=0 and categories.cat_id<11 ");         
+          WHERE items.cat_id=? and items.state_id=? and items.approve>0 and items.hide=0 /*and categories.cat_id<11*/ ");         
              
           $stmt->execute(array($CAT,$STATE)); 
           $itemsNum=$stmt->fetchColumn();
           //pagination data
-          $adsPerPage=15; 
+          $aadsPerPage=15; 
           $NumberOfPages=ceil($itemsNum/$adsPerPage);
           $pageNum= isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page']<=$NumberOfPages&& $_GET['page']>0 ? intval($_GET['page']) : 1; 
           $startFrom=($pageNum-1)* $adsPerPage; //
@@ -108,7 +108,7 @@ if (isset($session)) {
              JOIN country     ON items.country_id=country.country_id
              JOIN state       ON items.state_id=state.state_id
              JOIN city        ON items.city_id=city.city_id
-          WHERE items.cat_id=? and items.state_id=? and items.approve>0 and items.hide=0  and categories.cat_id<11          
+          WHERE items.cat_id=? and items.state_id=? and items.approve>0 and items.hide=0  /*and categories.cat_id<11*/          
              $ordering    limit $startFrom, $adsPerPage");
           $stmt->execute(array($CAT,$STATE));
           $itemsGET=$stmt->fetchAll();
@@ -124,12 +124,12 @@ if (isset($session)) {
              JOIN country     ON items.country_id=country.country_id
              JOIN state       ON items.state_id=state.state_id
              JOIN city        ON items.city_id=city.city_id
-          WHERE items.cat_id>0 and items.state_id>0 and items.approve>0 and items.hide=0 and categories.cat_id<11 ");         
+          WHERE items.cat_id>0 and items.state_id>0 and items.approve>0 and items.hide=0 $query /*and categories.cat_id<11*/ ");         
              
           $stmt->execute();
           $itemsNum=$stmt->fetchColumn();
           //pagination data
-          $adsPerPage=15; 
+          $aadsPerPage=15; 
           $NumberOfPages=ceil($itemsNum/$adsPerPage);
           $pageNum= isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page']<=$NumberOfPages&& $_GET['page']>0 ? intval($_GET['page']) : 1; 
           $startFrom=($pageNum-1)* $adsPerPage; 
@@ -143,7 +143,7 @@ if (isset($session)) {
              JOIN country     ON items.country_id=country.country_id
              JOIN state       ON items.state_id=state.state_id
              JOIN city        ON items.city_id=city.city_id
-          WHERE items.cat_id>0 and items.state_id>0  and items.approve>0 and items.hide=0  and categories.cat_id<11       
+          WHERE items.cat_id>0 and items.state_id>0  and items.approve>0 and items.hide=0  $query      
              $ordering     limit $startFrom, $adsPerPage ");
           $stmt->execute();
           $itemsGET=$stmt->fetchAll();
@@ -160,12 +160,12 @@ if (isset($session)) {
              JOIN country     ON items.country_id=country.country_id
              JOIN state       ON items.state_id=state.state_id
              JOIN city        ON items.city_id=city.city_id
-          WHERE items.cat_id=? and items.state_id>0 and items.approve>0 and items.hide=0 and categories.cat_id<11 ");         
+          WHERE items.cat_id=? and items.state_id>0 and items.approve>0 and items.hide=0 $query ");         
              
           $stmt->execute(array($CAT));
           $itemsNum=$stmt->fetchColumn();
           //pagination data
-          $adsPerPage=15; 
+          $aadsPerPage=15; 
           $NumberOfPages=ceil($itemsNum/$adsPerPage);
           $pageNum= isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page']<=$NumberOfPages&& $_GET['page']>0 ? intval($_GET['page']) : 1; 
           $startFrom=($pageNum-1)* $adsPerPage; //
@@ -179,7 +179,7 @@ if (isset($session)) {
              JOIN country     ON items.country_id=country.country_id
              JOIN state       ON items.state_id=state.state_id
              JOIN city        ON items.city_id=city.city_id
-          WHERE items.cat_id=? and items.state_id>0 and items.approve>0 and items.hide=0  and categories.cat_id<11          
+          WHERE items.cat_id=? and items.state_id>0 and items.approve>0 and items.hide=0 $query /*and categories.cat_id<11*/          
              $ordering     limit $startFrom, $adsPerPage ");
           $stmt->execute(array($CAT));
           $itemsGET=$stmt->fetchAll();
@@ -195,12 +195,12 @@ if (isset($session)) {
              JOIN country     ON items.country_id=country.country_id
              JOIN state       ON items.state_id=state.state_id
              JOIN city        ON items.city_id=city.city_id
-          WHERE items.cat_id>0 and items.state_id=? and items.approve>0 and items.hide=0 and categories.cat_id<11 ");         
+          WHERE items.cat_id>0 and items.state_id=? and items.approve>0 and items.hide=0 /*and categories.cat_id<11*/ ");         
              
           $stmt->execute(array($STATE));
           $itemsNum=$stmt->fetchColumn();
           //pagination data
-          $adsPerPage=15; 
+          $aadsPerPage=15; 
           $NumberOfPages=ceil($itemsNum/$adsPerPage);
           $pageNum= isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page']<=$NumberOfPages&& $_GET['page']>0 ? intval($_GET['page']) : 1; 
           $startFrom=($pageNum-1)* $adsPerPage; //
@@ -215,16 +215,18 @@ if (isset($session)) {
              JOIN country     ON items.country_id=country.country_id
              JOIN state       ON items.state_id=state.state_id
              JOIN city        ON items.city_id=city.city_id
-          WHERE items.cat_id>0 and items.state_id=? and items.approve>0 and items.hide=0  and categories.cat_id<11        
+          WHERE items.cat_id>0 and items.state_id=? and items.approve>0 and items.hide=0  /*and categories.cat_id<11*/        
              $ordering  limit $startFrom, $adsPerPage ");
           $stmt->execute(array($STATE));
           $itemsGET=$stmt->fetchAll();
           }
           ///////////////////
 
-        if(!empty($itemsGET)){ ?>
+        if(!empty($itemsGET)){ 
+        ?>
+        <span class="itemsNum-search"><?php  if($s=='s'){echo 'خدمات   &ensp;';}elseif($s=='p'){echo 'منتجات   &ensp;'; } echo ' '.getCat($CAT).' - '.getState($STATE).' - '; if($ORDERING==1){ echo 'الأكبر خصماً';}elseif($ORDERING==2){ echo 'الأحدث اضافة ';}elseif($ORDERING==3){ echo 'الأكثر مشاهدة ';}elseif($ORDERING>3||$ORDERING<1){$ORDERING=1; echo 'الأكبر خصماً';} ?>&emsp;&emsp;&emsp;نتائج البحث:  &nbsp;<?php echo $itemsNum;?> اعلان &ensp; <?php echo $NumberOfPages;?> صفحة   </span> 
         <div class=" items-container aside-son">
-        <span class="itemsNum-search"><?php echo $mostafeed.' - '.getCat($CAT).' - '.getState($STATE).' - '; if($ORDERING==1){ echo 'الأكبر خصماً';}elseif($ORDERING==2){ echo 'الأحدث اضافة ';}elseif($ORDERING==3){ echo 'الأكثر مشاهدة ';}elseif($ORDERING>3||$ORDERING<1){$ORDERING=1; echo 'الأكبر خصماً';} ?>&emsp;&emsp;&emsp;نتائج البحث:  &nbsp;<?php echo $itemsNum;?> اعلان &ensp; <?php echo $NumberOfPages;?> صفحة   </span> <?php
+        <?php
         foreach ($itemsGET as $value) { 
                  $ratio=$value['price']*($value['discount']/100);
                   $finalPrice1=round($value['price']-$ratio);
@@ -301,14 +303,15 @@ if (isset($session)) {
             </div>
               <?php
               if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-                ?> <div class="search-v-div-a"><a title="تقديم طلب شراء " href="order.php?id=<?php echo $value['item_id']?>&t=s&main=g"><i class="fas fa-phone"></i></a></div> <?php
+                ?><hr><?php
               }elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) {
-                ?> <div class="search-v-div-a"><a  title="اطلب شراء المنتج " href="order.php?id=<?php echo $value['item_id']?>&t=s&main=g"><i class="fas fa-phone"></i></a></div> <?php
+                 ?><hr><?php
               }elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
                 ?> <div class="search-v-div-a"><a ><i class="fas fa-phone"></i></a></div> <?php
               }else{ //appears as empty link for traders
                 ?> <div class="search-v-div-a"><a  href="login.php"><i class="fas fa-phone"></i></a></div> <?php
               } ?>
+
              <div class="bottom-div">
               <span class="alone small"><?php echo $value['country_nameAR'].'/'.$value['state_nameAR'].'/'.$value['city_nameAR'];?></span>
               <?php 
@@ -339,21 +342,21 @@ if (isset($session)) {
        <nav aria-label="Page navigation example" class="pagination-container">
           <ul class="pagination pagination-md">
          <?php if(($pageNum-$jumpBackward)>=1 ){  //previous
-         ?> <li class="page-item"><a class="page-link prev" href="?cat=<?php echo $CAT.'&state='.$STATE.'&ordering='.$ORDERING.'&page='. ($pageNum-$jumpBackward)?>"><?php echo $lang['prev'];?></a></li><?php
+         ?> <li class="page-item"><a class="page-link prev" href="?cat=<?php echo $CAT.'&s='.$s.'&state='.$STATE.'&ordering='.$ORDERING.'&page='. ($pageNum-$jumpBackward)?>"><?php echo $lang['prev'];?></a></li><?php
             }else{
             ?> <li class="page-item disabled"><a class="page-link"><?php echo $lang['prev'];?></a></li><?php
             }
             //$page=1; $page<= $NumberOfPages;  $page++
         for ($page=max(1,$pageNum-2);$page<=min($pageNum+2,$NumberOfPages);$page++) {  //for loop
         if (isset($_GET['page'])&&$_GET['page']==$page ) {
-          echo   '<li class="page-item"><a class="page-link active" href="search.php?cat='.$CAT.'&state='.$STATE.'&ordering='.$ORDERING.'&page='.$page.'">'.$page.'</a></li>';
+          echo   '<li class="page-item"><a class="page-link active" href="search.php?cat='.$CAT.'&s='.$s.'&state='.$STATE.'&ordering='.$ORDERING.'&page='.$page.'">'.$page.'</a></li>';
         }elseif (!isset($_GET['page'])&&$page==1 ) {
-           echo   '<li class="page-item"><a class="page-link active" href="search.php?cat='.$CAT.'&state='.$STATE.'&ordering='.$ORDERING.'&page='.$page.'">'.$page.'</a></li>';
+           echo   '<li class="page-item"><a class="page-link active" href="search.php?cat='.$CAT.'&s='.$s.'&state='.$STATE.'&ordering='.$ORDERING.'&page='.$page.'">'.$page.'</a></li>';
         }else{
-          echo   '<li class="page-item"><a class="page-link" href="search.php?cat='.$CAT.'&state='.$STATE.'&ordering='.$ORDERING.'&page='.$page.'">'.$page.'</a></li>';
+          echo   '<li class="page-item"><a class="page-link" href="search.php?cat='.$CAT.'&s='.$s.'&state='.$STATE.'&ordering='.$ORDERING.'&page='.$page.'">'.$page.'</a></li>';
         } }
           if(($pageNum+$jumpForward)<=$NumberOfPages){  //next
-        ?> <li class="page-item"> <a class="page-link next"  href="?cat=<?php echo $CAT.'&state='.$STATE.'&ordering='.$ORDERING.'&page='. ($pageNum+$jumpForward)?>"><?php echo $lang['next'];?></a> </li><?php
+        ?> <li class="page-item"> <a class="page-link next"  href="?cat=<?php echo $CAT.'&s='.$s.'&state='.$STATE.'&ordering='.$ORDERING.'&page='. ($pageNum+$jumpForward)?>"><?php echo $lang['next'];?></a> </li><?php
       }else{
          ?> <li class="page-item disabled"> <a class="page-link "><?php echo $lang['last'];?></a> </li><?php
       } ?>  

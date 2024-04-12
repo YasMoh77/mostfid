@@ -47,7 +47,7 @@ if (isset($session)) {
 </section>
 
 
-
+<!--&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
 
 <div class="icons"> 
 	<div class="con"><a href="search-v.php?k=11"><i class="far fa-object-group"></i></a> <p>خدمات تصميم </p></div>

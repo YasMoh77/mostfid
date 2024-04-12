@@ -40,14 +40,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id']>0 ) {
 	    
      
      /////session cart
-  if (isset($_SESSION['cart'][$id])) {
+  /*if (isset($_SESSION['cart'][$id])) {
        $prev=$_SESSION['cart'][$id]['q'];
        $_SESSION['cart'][$id]=array('id'=>$id,'q'=>$prev+$q);
        echo 'q='.$_SESSION['cart'][$id]['q'];
     }else{
       $_SESSION['cart'][$id]=array('id'=>$id,'q'=>$q);
        echo 'qnew='.$_SESSION['cart'][$id]['q'];
-    }
+    }*/
   
   
   if (isset($_GET['empty'])) { unset($_SESSION['cart']); } //empty all cart 
