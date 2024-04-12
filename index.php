@@ -158,16 +158,16 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 <div class="icons">
 
 	<!--<img src="layout/images/perfume2.png">-->
-	<div class="con"><a href="search.php?cat=1&state=0&ordering=1&main=g"><i class="fas fa-hamburger"></i></a> <p>طعام </p></div>
-	<div class="con"><a href="search.php?cat=2&state=0&ordering=1&main=g"><i class="fas fa-tv"></i></a> <p>أجهزة </p></div>
-	<div class="con"><a href="search.php?cat=3&state=0&ordering=1&main=g"><i class="fas fa-couch"></i></a> <p>لوازم المنزل </p></div>
-	<div class="con"><a href="search.php?cat=4&state=0&ordering=1&main=g"><i class="fas fa-spray-can"></i></a> <p>الجمال والزينة </p></div>
-	<div class="con"><a href="search.php?cat=5&state=0&ordering=1&main=g"><i class="fas fa-tshirt"></i></a> <p>ملابس وأحذية </p></div>
-	<div class="con"><a href="search.php?cat=6&state=0&ordering=1&main=g"><i class="fas fa-paint-roller"></i></a> <p>بناء وتشطيبات </p></div>
-	<div class="con"><a href="search.php?cat=7&state=0&ordering=1&main=g"><i class="fas fa-building"></i></a> <p>عقارات وأراضي </p></div>
-	<div class="con"><a href="search.php?cat=8&state=0&ordering=1&main=g"><i class="fas fa-car"></i></a> <p>مركبات </p></div>
-	<div class="con"><a href="search.php?cat=9&state=0&ordering=1&main=g"><i class="fas fa-tractor"></i></a> <p>معدات  ومستلزمات  </p></div>
-	<div class="con"><a href="search.php?cat=10&state=0&ordering=1&main=g"><i class="fas fa-cogs"></i></a> <p>قطع غيار </p></div>
+	<div class="con"><a href="search.php?cat=1&state=0&ordering=1 "><i class="fas fa-hamburger"></i></a> <p>طعام </p></div>
+	<div class="con"><a href="search.php?cat=2&state=0&ordering=1 "><i class="fas fa-tv"></i></a> <p>أجهزة </p></div>
+	<div class="con"><a href="search.php?cat=3&state=0&ordering=1 "><i class="fas fa-couch"></i></a> <p>لوازم المنزل </p></div>
+	<div class="con"><a href="search.php?cat=4&state=0&ordering=1 "><i class="fas fa-spray-can"></i></a> <p>الجمال والزينة </p></div>
+	<div class="con"><a href="search.php?cat=5&state=0&ordering=1 "><i class="fas fa-tshirt"></i></a> <p>ملابس وأحذية </p></div>
+	<div class="con"><a href="search.php?cat=6&state=0&ordering=1 "><i class="fas fa-paint-roller"></i></a> <p>بناء وتشطيبات </p></div>
+	<div class="con"><a href="search.php?cat=7&state=0&ordering=1 "><i class="fas fa-building"></i></a> <p>عقارات وأراضي </p></div>
+	<div class="con"><a href="search.php?cat=8&state=0&ordering=1 "><i class="fas fa-car"></i></a> <p>مركبات </p></div>
+	<div class="con"><a href="search.php?cat=9&state=0&ordering=1 "><i class="fas fa-tractor"></i></a> <p>معدات  ومستلزمات  </p></div>
+	<div class="con"><a href="search.php?cat=10&state=0&ordering=1 "><i class="fas fa-cogs"></i></a> <p>قطع غيار </p></div>
 </div>
 
 
@@ -250,7 +250,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 				      </div>
 			        <section>
 					   <span class="alone small cut2"><?php echo $value['cat_nameAR'].' > '.$value['subcat_nameAR'];?></span>
-	 					<a  class="p-title  alone font1 titleLink" href="details.php?id=<?php echo $value['item_id']?>&t=i&main=g"><?php echo $value['title'] ?></a>
+	 					<a  class="p-title  alone font1 titleLink" href="details.php?id=<?php echo $value['item_id']?>&t=i "><?php echo $value['title'] ?></a>
 	 					<input type="hidden" class="idValue" value="<?php echo $value['item_id'];?>">
 	 					<p class="date"><i class="fas fa-calendar"></i><?php echo ' '.$value['item_date'].' '; if($value['sit']==1){ echo "المعلن هو المالك  ";}elseif($value['sit']==2){ echo "السعر شامل أجر الوسيط  ";} ?></p>
 	 						
@@ -290,7 +290,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 				</div>
 		<?php	}
 		 ?></div>
-		<a class="see-more" href="search.php?cat=0&state=0&ordering=1&main=g">شاهد المزيد </a>
+		<a class="see-more" href="search.php?cat=0&state=0&ordering=1 ">شاهد المزيد </a>
 	</div> 
    <?php } ?>
 
@@ -375,7 +375,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 				      </div>
 			        <section>
 					   <span class="alone small cut2"><?php echo $value['cat_nameAR'].' > '.$value['subcat_nameAR'];?></span>
-	 					<a href="details.php?id=<?php echo $value['item_id']?>&t=i&main=g" class="p-title  alone font1 titleLink"><?php echo $value['title'] ?></a>
+	 					<a href="details.php?id=<?php echo $value['item_id']?>&t=i " class="p-title  alone font1 titleLink"><?php echo $value['title'] ?></a>
 	 					<input type="hidden" class="idValue" value="<?php echo $value['item_id'];?>">
 	 					<p class="date"><i class="fas fa-calendar"></i><?php echo ' '.$value['item_date'].' '; if($value['sit']==1){ echo "المعلن هو المالك  ";}elseif($value['sit']==2){ echo "السعر شامل أجر الوسيط  ";} ?></p>
 	 						
@@ -415,7 +415,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 		<?php	}
 		 ?></div>
 		
-		<a class="see-more"  href="search.php?cat=0&state=0&ordering=2&main=g">شاهد المزيد </a> 
+		<a class="see-more"  href="search.php?cat=0&state=0&ordering=2 ">شاهد المزيد </a> 
 	</div>
  <?php } ?>
 
@@ -505,7 +505,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 				      </div>
 			        <section> 
 					   <span class="alone small cut2"><?php echo getCat($fetchCat['cat_id']).' > '.getSub($fetchSub['subcat_id']);?></span>
-	 					<a href="details.php?id=<?php echo $value['item_id']?>&t=i&main=g" class="p-title  alone font1 titleLink"><?php echo $value['title'] ?></a>
+	 					<a href="details.php?id=<?php echo $value['item_id']?>&t=i " class="p-title  alone font1 titleLink"><?php echo $value['title'] ?></a>
 	 					<input type="hidden" class="idValue" value="<?php echo $value['item_id'];?>">
 	 					<p class="date"><i class="fas fa-calendar"></i><?php echo ' '.$value['item_date'].' '; if($value['sit']==1){ echo "المعلن هو المالك  ";}elseif($value['sit']==2){ echo "السعر شامل أجر الوسيط  ";} ?></p>
 	 						
@@ -545,7 +545,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 		<?php	}
 		 ?></div> 
 		
-		<a class="see-more" href="search.php?cat=0&state=0&ordering=3&main=g">شاهد المزيد </a>
+		<a class="see-more" href="search.php?cat=0&state=0&ordering=3 ">شاهد المزيد </a>
 	</div>
   <?php	} ?>
 </div>
@@ -779,7 +779,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 				      </div>
 			        <section>
 					   <span class="alone cut2"><span class="small" title="<?php echo $value['cat_nameAR']?>"><?php echo $value['cat_nameAR'].'</span> > <span class="small" title="'.$value['subcat_nameAR'].'">'.$value['subcat_nameAR'];?></span></span>
-	 					<a href="details.php?id=<?php echo $value['item_id']?>&t=i&main=v" class="p-title  alone font1 titleLink"><?php echo $value['title'] ?></a>
+	 					<a href="details.php?id=<?php echo $value['item_id']?>" class="p-title  alone font1 titleLink"><?php echo $value['title'] ?></a>
 	 					<input type="hidden" class="idValue" value="<?php echo $value['item_id'];?>">
 	 					<p class="date"><?php echo 'أضيف في: '.$value['item_date'] ?></p>
 	 					<div class="finalPrice-div ">
@@ -901,7 +901,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 				      </div>
 			        <section>
 					    <span class="alone cut2"><span class="small" title="<?php echo $value['cat_nameAR']?>"><?php echo $value['cat_nameAR'].'</span> > <span class="small" title="'.$value['subcat_nameAR'].'">'.$value['subcat_nameAR'];?></span></span>
-	 					<a href="details.php?id=<?php echo $value['item_id']?>&t=i&main=v" class="p-title  alone font1 titleLink"><?php echo $value['title'] ?></a>
+	 					<a href="details.php?id=<?php echo $value['item_id']?>" class="p-title  alone font1 titleLink"><?php echo $value['title'] ?></a>
 	 					<input type="hidden" class="idValue" value="<?php echo $value['item_id'];?>">
 	 					<p class="date"><?php echo 'أضيف في: '.$value['item_date'] ?></p>
 	 					<div class="finalPrice-div">
@@ -1024,7 +1024,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 				      </div>
 			        <section>
 			        	<span class="alone cut2"><span class="small" title="<?php echo $value['cat_nameAR']?>"><?php echo $value['cat_nameAR'].'</span> > <span class="small" title="'.$value['subcat_nameAR'].'">'.$value['subcat_nameAR'];?></span></span>
-	 					<a href="details.php?id=<?php echo $value['item_id']?>&t=i&main=v" class="p-title  alone font1 titleLink"><?php echo $value['title'] ?></a>
+	 					<a href="details.php?id=<?php echo $value['item_id']?>" class="p-title  alone font1 titleLink"><?php echo $value['title'] ?></a>
 	 					<input type="hidden" class="idValue" value="<?php echo $value['item_id'];?>">
 	 					<p class="date"><?php echo 'أضيف في: '.$value['item_date'] ?></p>
 	 					<div class="finalPrice-div ">

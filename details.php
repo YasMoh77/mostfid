@@ -5,7 +5,7 @@ date_default_timezone_set('Africa/Cairo');
 $title='مستفيد | تفاصيل الاعلان';  //title of the
 $keywords='<meta name="keywords" content=  "  منصة مستفيد   ,  تعليقات المشترين , تقييم المنتج  ,  الوصف   ,   تفاصيل الاعلان,  mostfid  ,  big sale  " >';
 $description='<meta name="description" content="يوفر مستفيد منتجات وخدمات يعرضها اصحابها بأسعار مخفضة.جميع المنتجات والخدمات المعروضة عليها خصم حقيقي. استمتع مع مستفيد بخصم على منتجات وخدمات انت في حاجة اليها   ">';
-$canonical='<link rel="canonical" href="https://www.mostfid.com/search.php?cat=0&state=0&ordering=1&main=g" >'; 
+$canonical='<link rel="canonical" href="https://www.mostfid.com/search.php?cat=0&s=p&state=0&ordering=1" >'; 
 
 include 'init.php';
   
@@ -16,7 +16,7 @@ elseif (isset($_SESSION['userGid'])) { $session=$_SESSION['userGid']; } //user g
 elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user fb
 
    //check $_GET request and store it 
-   if(isset($_GET['id']) && is_numeric($_GET['id'])&&$_GET['id']>0 &&isset($_GET['main']) && ($_GET['main']=='g' || $_GET['main']=='v' || $_GET['main']=='p' || $_GET['main']=='admin' || $_GET['main']=='self') && isset($_GET['t'])&&($_GET['t']=='s' || $_GET['t']=='i' || $_GET['t']=='p' || $_GET['t']=='admin' ) ) {
+   if(isset($_GET['id']) && is_numeric($_GET['id'])&&$_GET['id']>0 /*&&isset($_GET['main']) && ($_GET['main']=='g' || $_GET['main']=='v' || $_GET['main']=='p' || $_GET['main']=='admin' || $_GET['main']=='self') && isset($_GET['t'])&&($_GET['t']=='s' || $_GET['t']=='i' || $_GET['t']=='p' || $_GET['t']=='admin' */ ) {
    	 $ITEMID=intval($_GET['id']);
    	 if(isset($session)){ banned($session); }//if banned or not verified email
      //Bring data from database
@@ -28,7 +28,7 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
              $finalPrice1=round($item['price']-$ratio);
              $finalPrice=number_format($finalPrice1);
 		   	 
-		  if (isset($_GET['t'])&&$_GET['t']=='s' ) { // coming from search.php or search-v.php ?>
+		  /*if (isset($_GET['t'])&&$_GET['t']=='s' ) { // coming from search.php or search-v.php ?>
           <div class="above-details-main">
             <?php if(isset($_GET['main'])&&$_GET['main']=='g' ){ 
             	?><a class="main-link" href="general.php">الرئيسية </a> > 
@@ -70,8 +70,10 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
              }else{ 
                  header('location:logout.php?s=no');
                  exit();
-                } ?> 
-
+                } */?> 
+            <div class="above-details-main">
+            	<span>تفاصيل الاعلان  </span>
+            </div>
 		   	 <!-- get url to decide ts or ti -->
 		   	 <?php  
 		   	 $url= $_SERVER['REQUEST_URI']; /*get url*/
@@ -189,9 +191,9 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 		 					}elseif (isset($_SESSION['userEid']) ||isset($_SESSION['userGid']) ||isset($_SESSION['userFid']) ) {
 		 						?><div class="flex j-c-s-b above-sm" > <input class="b-none radius-sm" id="q" class="radius-sm" type="number" name="q" min="1" max="10"><a id="link" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="staticBackdrop" class="widest" title="تقديم طلب شراء " href="<?php //echo $item['item_id']; if($pr==1){ echo '&t=s&main=g';}elseif($pr2==1){ echo '&t=s&main=v';}elseif($pr3==1){ echo '&t=i&main=g';}elseif($pr4==1){ echo '&t=i&main=v';}elseif($pr5==1){ echo '&t=p&main=p';}elseif($pr6==1){ echo '&t=admin&main=admin';}?>"><i class="fas fa-phone"></i></a></div> <?php
 		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$item['user_id']) {
-		 						?> <a class="widest"><i class="fas fa-phone"></i></a> <?php
+		 						?> <a class="widest widest-login"><i class="fas fa-phone"></i></a> <?php
 		 					}else{  
-		 					 	?> <a class="widest" href="login.php"><i class="fas fa-phone"></i></a> <?php
+		 					 	?> <a class="widest widest-login" href="login.php"><i class="fas fa-phone"></i></a> <?php
 		 					} }else{ echo $lang['cpPreview'];} //END if cpanel preview ?>
 		   	 	</div>
 		   	 	     <!-- start offcanvas cart -->
@@ -590,9 +592,9 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 				   			 <input type='hidden' id="userid"  name='userid' value='<?php echo $session; ?>'>
 				   			 <input type='hidden' id="lng" name="lng"  value='<?php echo $l; ?>'>
 				   			 <?php
-                              if($pr==1){ ?><input type="hidden" name="token" value="1"> <?php }elseif($pr2==1){ ?><input type="hidden" name="token" value="2"> <?php }
+                              /*if($pr==1){ ?><input type="hidden" name="token" value="1"> <?php }elseif($pr2==1){ ?><input type="hidden" name="token" value="2"> <?php }
                               elseif($pr3==1){ ?><input type="hidden" name="token" value="3"> <?php }elseif($pr4==1){ ?><input type="hidden" name="token" value="4"> <?php }
-                              elseif($pr5==1){ ?><input type="hidden" name="token" value="5"> <?php }elseif($pr6==1){ ?><input type="hidden" name="token" value="6"> <?php }
+                              elseif($pr5==1){ ?><input type="hidden" name="token" value="5"> <?php }elseif($pr6==1){ ?><input type="hidden" name="token" value="6"> <?php }*/
 	                         ?>
 				   			 <button type='submit' id='submitComment'><?php echo $lang['submit']?></button>
 			   			     <span id="show-comm"></span>
@@ -657,14 +659,14 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 			          		  $text3=trim($_POST['newText']);
 							  $text2=stripcslashes($text3);
 							  $text1=htmlspecialchars($text2);
-							  $text=filter_var($text1,FILTER_SANITIZE_STRING);
+							  $text=htmlspecialchars($text1);// filter_var($text1,FILTER_SANITIZE_STRING);
 							  $com     =$_POST['comEdit'];
 							  $item_id =$_POST['item'];
 							  $token   =isset($_POST['token']);
 							  $stmt=$conn->prepare(" UPDATE  comments set c_text=? where c_id=? ");
 							  $stmt->execute(array($text,$com));
 							  if ($stmt) {
-							  	 ?><script>location.href='details.php?id=<?php echo $item_id?>& <?php if($token==1){ echo 't=s&main=g#show';}elseif($token==2){ echo 't=s&main=v#show'; }elseif($token==3){ echo 't=i&main=g#show';}elseif($token==4){ echo 't=i&main=v#show';}elseif($token==5){ echo 't=p&main=p#show';}elseif($token==6){ echo 't=admin&main=admin#show';} ?></script> <?php 
+							  	 ?><script>location.href='details.php?id=<?php echo $item_id.'#show';?>& <?php //if($token==1){ echo 't=s&main=g#show';}elseif($token==2){ echo 't=s&main=v#show'; }elseif($token==3){ echo 't=i&main=g#show';}elseif($token==4){ echo 't=i&main=v#show';}elseif($token==5){ echo 't=p&main=p#show';}elseif($token==6){ echo 't=admin&main=admin#show';} ?></script> <?php 
 							  	
 							  }
 			              }
@@ -731,14 +733,14 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 			   			</div>
                         <div class="div-comm-2"><!--  -->
                         	
-                        	<form id="inputEditText" class="formEditText" action="details.php?id=<?php echo $com['item_id']?>&<?php if($pr==1){ echo 't=s&main=g#show';}elseif($pr2==1){ echo 't=s&main=v#show'; }elseif($pr3==1){ echo 't=i&main=g#show';}elseif($pr4==1){ echo 't=i&main=v#show';}elseif($pr5==1){ echo 't=p&main=p#show';}elseif($pr6==1){ echo 't=admin&main=admin#show';} ?>" method='POST' >
+                        	<form id="inputEditText" class="formEditText" action="details.php?id=<?php echo $com['item_id'].'#show';?><?php //if($pr==1){ echo 't=s&main=g#show';}elseif($pr2==1){ echo 't=s&main=v#show'; }elseif($pr3==1){ echo 't=i&main=g#show';}elseif($pr4==1){ echo 't=i&main=v#show';}elseif($pr5==1){ echo 't=p&main=p#show';}elseif($pr6==1){ echo 't=admin&main=admin#show';} ?>" method='POST' >
 	                            <input type="text" class="newText" name="newText" value="<?php echo $com['c_text']?>" autocomplete='off' >
                                 <input type="hidden" class="comEdit" name="comEdit" value="<?php echo $com['c_id']?>">
                                 <input type="hidden" class="comEdit" name="item" value="<?php echo $com['item_id']?>">
 	                            <?php
-                                  if($pr==1){ ?><input type="hidden" name="token" value="1"> <?php }elseif($pr2==1){ ?><input type="hidden" name="token" value="2"> <?php }
+                               /*   if($pr==1){ ?><input type="hidden" name="token" value="1"> <?php }elseif($pr2==1){ ?><input type="hidden" name="token" value="2"> <?php }
                                   elseif($pr3==1){ ?><input type="hidden" name="token" value="3"> <?php }elseif($pr4==1){ ?><input type="hidden" name="token" value="4"> <?php }
-                                  elseif($pr5==1){ ?><input type="hidden" name="token" value="5"> <?php }elseif($pr6==1){ ?><input type="hidden" name="token" value="6"> <?php }
+                                  elseif($pr5==1){ ?><input type="hidden" name="token" value="5"> <?php }elseif($pr6==1){ ?><input type="hidden" name="token" value="6"> <?php }*/
 	                            ?>
 	                            <button class="sendEdit"><?php echo $lang['update'] ?></button>
                             </form>

@@ -28,7 +28,7 @@ if (isset($session) ) {//IF THERE IS A SESSION receive formComment from details.
 			$comment =filter_var(trim($_POST['comment']), FILTER_SANITIZE_STRING);
 		 	$userid  =$session;//session owner [commentor]
 		 	$itemid  =$_POST['itemid'];//item
-		 	$token   =$_POST['token']; 
+		 //	$token   =$_POST['token']; 
           //  $itemUser=$_POST['itemUser'];//user who posted the item
           //  $thumb   =isset($_POST['thumb']);
             $date    =date('Y-m-d');
@@ -55,7 +55,7 @@ if (isset($session) ) {//IF THERE IS A SESSION receive formComment from details.
 
 					        //pagination data
 						     $adsPerPage=10;
-							 $NumberOfPages=ceil($userComments/$adsPerPage);
+							   $NumberOfPages=ceil($userComments/$adsPerPage);
 						     $pageNum= isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page']<=$NumberOfPages&& $_GET['page']>0 ? intval($_GET['page']) : 1;
 						     $startFrom=($pageNum-1)* $adsPerPage; //
 
@@ -71,9 +71,9 @@ if (isset($session) ) {//IF THERE IS A SESSION receive formComment from details.
 							foreach ($fetched3 as  $com) {  ?>
 								<!-- get url to decide ts or ti -->
 							   	 <?php  
-							   	 if($token==1){ $go="&t=s&main=g#show";}elseif($token==2){ $go="&t=s&main=v#show";}
-							   	 elseif($token==3){ $go="&t=i&main=g#show";}elseif($token==4){ $go="&t=i&main=v#show";}
-							   	 elseif($token==5){ $go="&t=p&main=p#show";}elseif($token==6){ $go="&t=admin&main=admin#show";}
+							   	 $go="#show";
+							   /*	 elseif($token==3){ $go="&t=i&main=g#show";}elseif($token==4){ $go="&t=i&main=v#show";}
+							   	 elseif($token==5){ $go="&t=p&main=p#show";}elseif($token==6){ $go="&t=admin&main=admin#show";}*/
 						   		 ?>
 								<?php// $url= $_SERVER['REQUEST_URI']; /*get url*/ $pr=  preg_match('/t=s/', $url); //use for details pathinfo?>
 							   	<!--------///////////------------------->
@@ -87,7 +87,7 @@ if (isset($session) ) {//IF THERE IS A SESSION receive formComment from details.
 								   		    	<?php  if($com['user_id']==$session&&$com['item_id']==$itemid){ ?> <i class="fas fa-ellipsis-h dot dotEdit"></i> <?php }else{ ?> <i class="fas fa-ellipsis-h dot dotReport"></i> <?php }  ?>
 							   			        <div class="dot-container edit-delete-container">
 							   			        	<i class="fas fa-pen" title="<?php echo $lang['Edit'] ?>"></i>
-							   			        	<a href="actcom.php?c=<?php echo $com['c_id']?>&i=<?php echo $com['item_id']?>&<?php if($token==1){ echo 't=sg';}elseif($token==2){ echo 't=sv'; }elseif($token==3){ echo 't=ig';}elseif($token==4){ echo 't=iv';}elseif($token==5){ echo 't=p';}elseif($token==6){ echo 't=admin';} ?>"><i class="fas fa-trash confirmDelete" title="<?php echo $lang['del'] ?>"></i><input type="hidden" class="language" value="<?php echo $l;?>"></a>
+							   			        	<a href="actcom.php?c=<?php echo $com['c_id']?>&i=<?php echo $com['item_id']?><?php //if($token==1){ echo 't=sg';}elseif($token==2){ echo 't=sv'; }elseif($token==3){ echo 't=ig';}elseif($token==4){ echo 't=iv';}elseif($token==5){ echo 't=p';}elseif($token==6){ echo 't=admin';} ?>"><i class="fas fa-trash confirmDelete" title="<?php echo $lang['del'] ?>"></i><input type="hidden" class="language" value="<?php echo $l;?>"></a>
 							   			        </div>
 							   			        <div class="dot-container report-container">
 							   			        	<?php

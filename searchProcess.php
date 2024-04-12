@@ -233,7 +233,7 @@ if (isset($_POST['cat'])&&isset($_POST['state'])&&isset($_POST['ordering'])||iss
               </div>
               <section>
              <span class="alone small cut2"><?php echo $value['cat_nameAR'].' > '.$value['subcat_nameAR'];?></span> 
-            <a href="details.php?id=<?php echo $value['item_id']?>&t=s&main=g" class="p-title alone font1 titleLink"><?php echo $value['title'] ?></a>
+            <a href="details.php?id=<?php echo $value['item_id']?>" class="p-title alone font1 titleLink"><?php echo $value['title'] ?></a>
             <input type="hidden" class="idValue" value="<?php echo $value['item_id'];?>">
             <p class="date"><i class="fas fa-calendar"></i><?php echo ' '.$value['item_date'].' '; if($value['sit']==1){ echo "المعلن هو المالك  ";}elseif($value['sit']==2){ echo "السعر شامل أجر الوسيط  ";} ?></p> 
            

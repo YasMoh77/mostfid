@@ -2174,7 +2174,7 @@ section .bottom-div{
   margin-top: 7.5vh;
   height: 8vh;
 }
-.widest, .dt-left .widest{
+.widest, .dt-left .widest,.dt-left .widest-login{
   width: 78%;
   display: block;
   background: #205d7b;
@@ -2187,6 +2187,9 @@ section .bottom-div{
 }
 .dt-left .widest{
   width: 90%;
+}
+.dt-left .widest-login{
+  width: 100%;
 }
 .dt-left input,.repeated-contS input{
   width: 7%;
