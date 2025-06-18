@@ -78,7 +78,8 @@ if (isset($_GET['sentState']) && isset($_GET['l']) ){
 
      }
 
-
+     
+     
                          
 
 }else{ //if no session

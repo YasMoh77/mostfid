@@ -53,9 +53,9 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 
 
 <div class="about">
-	<h1 class="about-heading centered ">منصة مستفيد لشراء المنتجات والخدمات بخصومات  </h1>
+	<h1 class="about-heading centered ">منصة مستفيد لشراء المنتجات والخدمات بخصومات  </h1> 
      <h2><b class="about-detail about-detail2">مستفيد من أفضل منصات شراء المنتجات والخدمات   </b></h2>
-	   <h3 class="about-detail about-detail3">يعتبر  <a href="index.php">مستفيد </a>من أفضل منصات شراء  <a href="general.php">المنتجات   </a>و  <a href="service.php">الخدمات  </a>بخصومات؛ فنحن لا نعرض في مستفيد الا المنتجات والخدمات التي عليها خصومات أو عروض حقيقية؛ مما يجعل سعرها على مستفيد أقل من سعرها في السوق الأصلي. </h3>
+	   <h3 class="about-detail about-detail3">يعتبر  <a href="index.php">مستفيد </a>من أفضل منصات شراء  <a href="#head-pp">المنتجات   </a>و  <a href="#head-ps">الخدمات  </a>بخصومات؛ فنحن لا نعرض في مستفيد الا المنتجات والخدمات التي عليها خصومات أو عروض حقيقية؛ مما يجعل سعرها على مستفيد أقل من سعرها في السوق الأصلي. </h3>
 	        
 	   <h2><b class="about-detail about-detail2">أهمية مستفيد للمستخدم كمنصة شراء بخصومات   </b></h2>
      <h3 class="about-detail about-detail3">ستجد في مستفيد منتجات وخدمات عديدة في مكان واحد وعليها خصومات حقيقية وبالتالي نوفر عليك في مستفيد عناء البحث في اماكن مختلفة ونخفف عنك عبء ارتفاع الاسعار؛ وشعارنا دائما انت اولى بالخصم  </h3>
@@ -262,16 +262,8 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 		 						    <span class="currency">ج.م.</span>
 		 						</span>
 		 					</div>
-	 						<?php 
-		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-		 					 	?><hr><?php
-		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) { 
-		 						?><hr><?php
-		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
-		 						?> <a class="a-phone"><i class="fas fa-phone"></i></a> <?php
-		 					}else{ //appears as empty link for traders
-		 					 	?> <a class="a-phone" href="login.php"><i class="fas fa-phone"></i></a> <?php
-		 					} ?>
+		 					<hr>
+	 						
 	 					 <!--</p>-->
 	 					 <div class="bottom-div">
 		 					<span class="alone small"><?php echo $value['country_nameAR'].'/'.$value['state_nameAR'].'/'.$value['city_nameAR'];?></span>
@@ -387,16 +379,8 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 		 						    <span>ج.م.</span>
 		 						</span>
 		 					</div>
-	 						<?php 
-		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-		 					   ?><hr><?php
-		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) { 
-		 					  ?><hr><?php
-		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
-		 						?> <a class="a-phone"><i class="fas fa-phone"></i></a> <?php
-		 					}else{ //appears as empty link for traders
-		 					 	?> <a class="a-phone" href="login.php"><i class="fas fa-phone"></i></a> <?php
-		 					} ?>
+	 						<hr>
+
 	 					 <div class="bottom-div">
 		 					<span class="alone small"><?php echo $value['country_nameAR'].'/'.$value['state_nameAR'].'/'.$value['city_nameAR'];?></span>
 		 					<?php
@@ -517,16 +501,8 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 		 						    <span>ج.م.</span>
 		 						</span>
 	 					    </div>
-	 						<?php 
-		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-		 					 	?><hr><?php
-		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) { 
-		 						?><hr><?php
-		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
-		 						?> <a class="a-phone"><i class="fas fa-phone"></i></a> <?php
-		 					}else{ //appears as empty link for traders
-		 					 	?> <a class="a-phone" href="login.php"><i class="fas fa-phone"></i></a> <?php
-		 					} ?>
+	 						 <hr>
+
 	 					 <div class="bottom-div">
 		 					<span class="alone small"><?php echo getCountry($fetchCont['country_id']).'/'.$value['state_nameAR'].'/'.$value['city_nameAR'];?></span>
 		 					<?php
@@ -551,7 +527,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 </div>
 
 <!--------------------  CAROUSEL --------------------->
-<!--<p class="cats-container-p">اقسام الموقع</p>
+<p class="cats-container-p">اقسام الموقع</p>
 <div class="cats-container">
 	<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
 	  <div class="carousel-indicators">
@@ -615,7 +591,7 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 	    <span class="visually-hidden">Next</span>
 	  </button>
 	</div>
-</div>-->
+</div>
 
 
 
@@ -790,16 +766,8 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 	 						    <span>ج.م.</span>
 	 						</span>
 	 					</div> 
-	 						<?php
-		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-		 					  ?><hr><?php
-		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) {
-                 ?><hr><?php
-		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
-		 						?> <a class="a-phone"><i class="fas fa-phone"></i></a> <?php
-		 					}else{ //appears as empty link for traders
-		 					 	?> <a class="a-phone" href="login.php"><i class="fas fa-phone"></i></a> <?php
-		 					} ?>
+	 						<hr>
+
 	 					 </p>
 	 					 <div class="bottom-div">
 		 					<span class="alone small"><?php echo $value['country_nameAR'].'/'.$value['state_nameAR'].'/'.$value['city_nameAR'];?></span>
@@ -912,16 +880,8 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 	 						    <span>ج.م.</span>
 	 						</span>
 	 					</div>
-	 						<?php
-		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-                ?><hr><?php
-		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) {
-		 						?><hr><?php
-		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
-		 						?> <a class="a-phone"><i class="fas fa-phone"></i></a> <?php
-		 					}else{ //appears as empty link for traders
-		 					 	?> <a class="a-phone" href="login.php"><i class="fas fa-phone"></i></a> <?php
-		 					} ?>
+	 						<hr>
+
 	 					 </p>
 	 					 <div class="bottom-div">
 		 					<span class="alone small"><?php echo $value['country_nameAR'].'/'.$value['state_nameAR'].'/'.$value['city_nameAR'];?></span>
@@ -1035,16 +995,8 @@ deleteOrders(); //delete orders older than 3 months => functions 805
 	 						    <span>ج.م.</span>
 	 						</span>
 	 					</div>
-	 						<?php
-		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$value['user_id'] ) { //appears as a link for users
-		 					 	?><hr><?php
-		 					}elseif (isset($_SESSION['userEid'])||isset($_SESSION['userGid'])||isset($_SESSION['userFid'])) {
-		 						?><hr><?php
-		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$value['user_id']) {
-		 						?> <a class="a-phone"><i class="fas fa-phone"></i></a> <?php
-		 					}else{ //appears as empty link for traders
-		 					 	?> <a class="a-phone" href="login.php"><i class="fas fa-phone"></i></a> <?php 
-		 					} ?>
+	 						<hr>
+	 						
 	 					 </p>
 	 					 <div class="bottom-div">
 		 					<span class="alone small"><?php echo $value['country_nameAR'].'/'.$value['state_nameAR'].'/'.$value['city_nameAR'];?></span>

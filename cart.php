@@ -14,19 +14,24 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 if ($session) {
   //if activated==0 => email updated but not verified & if user or trader is banned
   banned($session);
- if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id']>0 ) { 
-  $id=$_GET['id'];
-  $q=isset($_GET['q'])&&$_GET['q']>0?$_GET['q']:1;
+ if($_SERVER['REQUEST_METHOD']=='POST'){
+ if (isset($_POST['id']) && is_numeric($_POST['id']) && $_POST['id']>0 ) { 
+  $id=$_POST['id'];
+  $q=isset($_POST['q'])&&$_POST['q']>0?$_POST['q']:1;
   $ITEMS=items('items.item_id',$id); 
    /////session cart
-  if (isset($_SESSION['cart'][$id])) {
-       $prev=$_SESSION['cart'][$id]['q'];
-      if($prev+$q<=10){ $_SESSION['cart'][$id]=array('id'=>$id,'q'=>$prev+$q);
-       }else{$_SESSION['cart'][$id]=array('id'=>$id,'q'=>$q);}
-    }else{
+  if (!isset($_SESSION['cart'][$id])) {
       $_SESSION['cart'][$id]=array('id'=>$id,'q'=>$q);
     }
-  }  
+    
+    /*if (isset($_SESSION['cart'][$id])) {
+       //$prev=$_SESSION['cart'][$id]['q'];
+      // $_SESSION['cart'][$id]=array('id'=>$id,'q'=>$q);
+    }else{
+      $_SESSION['cart'][$id]=array('id'=>$id,'q'=>$q);
+    }*/
+ 
+  }  }
     //
     $stmt=$conn->prepare("SELECT * FROM user 
     join country on user.country_id=country.country_id
@@ -41,24 +46,7 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
   if (isset($_GET['empty'])) { unset($_SESSION['cart']);}  //empty all cart
   if (isset($_GET['remove'])) { $rem=$_GET['remove'];unset($_SESSION['cart'][$rem]); }//empty only one item from cart 
       //
-    /*  if (isset($_GET['t'])&&$_GET['t']=='s' ) { //coming from search page 
-       if (isset($_GET['main'])&&$_GET['main']=='g' ) {
-         $link='&t=s&main=g';
-         ?><p class="right"><a class="main-link" href="general.php">الرئيسية  </a> > <a class="main-link" href="search.php?cat=0&state=0&ordering=1&main=g">بحث  </a> > <span>إتمام الطلب  </span></p> <?php
-       }elseif (isset($_GET['main']) && $_GET['main']=='v') {
-          $link='&t=s&main=v';
-         ?><p class="right"><a class="main-link" href="general.php">الرئيسية  </a> > <a class="main-link" href="search-v.php?cat=0&state=0&ordering=1&main=v">بحث  </a> > <span>إتمام الطلب  </span></p><?php
-       }
-
-    }elseif (isset($_GET['t'])&&$_GET['t']=='i' ) { //coming from homepage 
-      if (isset($_GET['main'])&&$_GET['main']=='g' ) {
-          $link='&t=i&main=g';
-         ?><p class="right"><a class="main-link" href="general.php">الرئيسية  </a> > <span>إتمام الطلب  </span></p><?php
-       }elseif (isset($_GET['main']) && $_GET['main']=='v') {
-          $link='&t=i&main=v';
-         ?><p class="right"><a class="main-link" href="service.php">الرئيسية  </a> > <span>إتمام الطلب  </span></p><?php
-       }
-    } */
+   
 } //END if ((isset($_GET['d']) && $_GET['d']=='fulfil'  ?> 
   
  
@@ -66,6 +54,7 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
                 <?php  //unset($_SESSION['cart']);
                  if(isset($_SESSION['cart'])&& count($_SESSION['cart'])>0){  ?>
                   <form id="order" action="orderForm.php" method="POST">
+                    <input type="hidden" name="buy">
                 <section>
                 		<table class="cart-table">
                 			<thead>
@@ -100,7 +89,7 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
                                           
                                              ?>
                                     				<tr>
-                                    					<td class="cut2 title"><?php echo $item['title']?></td>
+                                    					<td class="cut2 title"><?php echo $item['title'];?></td>
                                               <td><input type="text" class="final" value="<?php echo $item['price']?>" disabled></td>
                                     					<td><input type="text" class="final" value="<?php echo $finalPrice ?>" disabled></td>
                                               <td><input type="text" class="final" value="<?php echo $item['discount'] ?>" disabled></td>
@@ -112,7 +101,7 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
                                                ?> 
                                                </td>
                                               <td class="total"><?php echo $finalPrice*$val['q'] ?></td>
-                                    					<td><?php $key; ?><a href="?id=<?php echo $key;?>&remove=<?php echo $key?>"><i onclick="return confirm('هل ترغب في الحذف؟')" class="fas fa-trash red2"></i></a></td>
+                                    					<td> <a href="?id=<?php echo $key;?>&remove=<?php echo $key?>"><i onclick="return confirm('هل ترغب في الحذف؟')" class="fas fa-trash red2"></i></a></td>
                                     				 
                                             </tr>
                                             <?php 
@@ -134,7 +123,7 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
                     <div class="solid orange"><span>الاجمالي =  <span class="red"><?php echo $total; ?></span> ج.م. </span></div>
                 	</section> 
                   <div class="order-flex">
-                    <div class="flex j-c-s-e padding-sm"><i class="fas fa-plus white"><a class="white" href="general.php"></i> اضافة المزيد من الطلبات  </a></div>
+                    <div class="flex j-c-s-e padding-sm"><i class="fas fa-plus white"><a class="white" href="index.php"></i> اضافة المزيد من الطلبات  </a></div>
                     <div class="empty flex j-c-s-e padding-sm" ><i  class="fas fa-times white"><a onclick="return confirm('الغاء جميع الطلبات؟')" href="?id=<?php echo $key.'&empty=e'/*.$link*/; ?>"></i> الغاء جميع الطلبات  </a></div>
 
                   </div>
@@ -193,7 +182,7 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
                             <p class="resultPl"></p> 
                   </div><!--end div-> class=under table -->
                   </form>
-                 <?php }else{ ?> <div class="height centered font-med above-lg no"><p class="centered font-med red">لا توجد طلبات  شراء </p><p><a href="general.php">أضف طلبات الى سلة مشترياتك</a></p></div><?php } // END foreach & foreach 
+                 <?php }else{ ?> <div class="height centered font-med above-lg no"><p class="centered font-med red">لا توجد طلبات  شراء </p><p><a href="index.php">أضف طلبات الى سلة مشترياتك</a></p></div><?php } // END if(isset($_SESSION['cart'])&& count($_SESSION['cart'])>0){  
                  //counter eye to count page visits 
                   include 'counter.php';
                   echo '<span class="eye-counter" id="'.$_SESSION['counterOrder'].'"></span>'; 
@@ -225,14 +214,7 @@ if ((isset($_GET['d']) && $_GET['d']=='fulfil' || isset($_GET['remove'])) || iss
          });
         
         //ajax 
-        $(".pickNum").on("change", function(){
-          /* var num=$(this).val();
-           var final=$(this).closest('td').prev('td').find('.final').val();
-           $(this).closest('td').next().html(final);
-           var total=final*num;
-           $(this).closest('td').next().html(total);*/
-          
-        });
+        
 
                  
                   

@@ -187,9 +187,9 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 		 					if (isset($session)) { $fetchB=fetch2('block','user','user_id',$session,'block',1); }
 		 					if (!isset($_GET['source'])) { //if there's preview from cpanel
 		 					if (isset($_SESSION['traderid'])&&$_SESSION['traderid']!=$item['user_id'] ) { //appears as a link for users
-                                ?><div class="flex j-c-s-b above-sm" > <input class="b-none radius-sm" id="q" class="radius-sm" type="number" name="q" min="1" max="10"><a id="link" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="staticBackdrop" class="widest" title="تقديم طلب شراء " href="<?php //echo $item['item_id']; if($pr==1){ echo '&t=s&main=g';}elseif($pr2==1){ echo '&t=s&main=v';}elseif($pr3==1){ echo '&t=i&main=g';}elseif($pr4==1){ echo '&t=i&main=v';}elseif($pr5==1){ echo '&t=p&main=p';}elseif($pr6==1){ echo '&t=admin&main=admin';}?>"><i class="fas fa-phone"></i></a></div> <?php
+                                ?><div class="flex j-c-s-b above-sm" > <input class="b-none radius-sm" id="q" class="radius-sm" type="number" name="q" min="1" max="10"><a id="link" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="staticBackdrop" class="widest" title="تقديم طلب شراء " ><i class="fas fa-phone"></i></a></div> <?php
 		 					}elseif (isset($_SESSION['userEid']) ||isset($_SESSION['userGid']) ||isset($_SESSION['userFid']) ) {
-		 						?><div class="flex j-c-s-b above-sm" > <input class="b-none radius-sm" id="q" class="radius-sm" type="number" name="q" min="1" max="10"><a id="link" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="staticBackdrop" class="widest" title="تقديم طلب شراء " href="<?php //echo $item['item_id']; if($pr==1){ echo '&t=s&main=g';}elseif($pr2==1){ echo '&t=s&main=v';}elseif($pr3==1){ echo '&t=i&main=g';}elseif($pr4==1){ echo '&t=i&main=v';}elseif($pr5==1){ echo '&t=p&main=p';}elseif($pr6==1){ echo '&t=admin&main=admin';}?>"><i class="fas fa-phone"></i></a></div> <?php
+		 						?><div class="flex j-c-s-b above-sm" > <input class="b-none radius-sm" id="q" class="radius-sm" type="number" name="q" min="1" max="10"><a id="link" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="staticBackdrop" class="widest" title="تقديم طلب شراء " ><i class="fas fa-phone"></i></a></div> <?php
 		 					}elseif (isset($_SESSION['traderid'])&&$_SESSION['traderid']==$item['user_id']) {
 		 						?> <a class="widest widest-login"><i class="fas fa-phone"></i></a> <?php
 		 					}else{  
@@ -199,21 +199,21 @@ elseif (isset($_SESSION['userFid'])) { $session=$_SESSION['userFid']; } //user f
 		   	 	     <!-- start offcanvas cart -->
                      <div class="offcanvas radius-sm" data-bs-backdrop="static" tabindex="-1" id="cart" aria-labelledby="staticBackdropLabel"> 
 		                  <div class="offcanvas-header offcanvas-header-report">
-		                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> 
 		                        <span class=" msg-to cut2"><?php echo $item['title'];?></span>
 		                  </div>
-		                  <div class="">
+		                  <div class=""> 
 	                        <span class="report-reason showQnty right"></span>
 
-			   	    	  	<form  action="cart.php" method="GET">
+			   	    	  	<form  action="cart.php" method="POST">
 			   	    	  		<input  type="hidden" id="qForm" name="q">
 			   	    	  		<input  type="hidden" id="qSess" value="<?php if(isset($_SESSION['cart'][$item['item_id']])){ echo $_SESSION['cart'][$item['item_id']]['q'];}?>" name="qSess">
 			   	    	  		<input type="hidden" name="id" value="<?php echo $item['item_id']?>">
 				   	    	  	<button type="submit" class="btn-canvas-msg btnCart radius-sm"><?php echo 'الذهاب الى السلة ';?></button>
-			   	    	  	</form>
+			   	    	  	</form> 
 	                      </div>
 	                 </div>
-                  // <!-- end offcanvas cart -->
+                   <!-- end offcanvas cart -->
 		   	 </div>
 		   	 <?php
 		   	 if (isset($_SESSION['traderid'])) { $session=$_SESSION['traderid']; } //trader

@@ -686,7 +686,7 @@ function itemFetch($field,$ITEMID){
 
 
 
-////////////////////////////////////// 
+//////////////////////////////////////  
 //use this function in details.php 
 function items($field,$id){
    $ITEMID=$id; //item_id

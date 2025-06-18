@@ -67,8 +67,8 @@ if (isset($_SESSION['cart'])&&count($_SESSION['cart'])>0) { $cart=count($_SESSIO
    </noscript>
    <a href="index.php" class="logo font1">مستفيد</a>
    <div class="middle">
-      <a href="general.php" class="one font1"> منتجات  </a>
-      <a href="service.php" class="two font1">خدمات  </a>
+      <a href="index.php?id=#head-pp" class="one font1"> منتجات  </a>
+      <a href="index.php?id=#head-ps" class="two font1">خدمات  </a>
       
     </div>
     <?php

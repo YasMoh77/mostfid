@@ -32,18 +32,19 @@ if ($session) {
          $num        =$_POST['num'];
          $date       =time();
          $prog1=isset($_POST['prog'])&&!empty($_POST['prog'])?$_POST['prog']:0;//program code
-         $prog2=filter_var(trim($prog1),FILTER_SANITIZE_STRING);
+        // $prog2=filter_var(trim($prog1),FILTER_SANITIZE_STRING);
+         $prog2=htmlspecialchars(trim($prog1));
          $prog=strlen($prog2)==5?$prog2:'';
           
           
          // print_r($mostafed) ;
           $code=rand(1000,10000);
 
-          $filteredName=filter_var(trim($name),FILTER_SANITIZE_STRING);
-          $filteredPhone=filter_var(trim($phone),FILTER_SANITIZE_NUMBER_INT);
+          $filteredName=htmlspecialchars(trim($name));
+          $phone=preg_replace('/[^0-9]/', '', $phone);
+          $filteredPhone=filter_var($phone,FILTER_VALIDATE_INT);
           $result=phone($country,$filteredPhone);//checks if phone suits country
-
-
+         
           $error=array();
           //item hidden or not
           for ($i=0; $i <count($item_id) ; $i++) { 
@@ -57,8 +58,8 @@ if ($session) {
           for ($a=0; $a <count($item_id) ; $a++) { 
             $fetched=fetch2('*','user','user_id',$session,'block',1);
             $fetchTitle=fetch('title','items','item_id',$item_id[$a]);
-            if ($fetched['block']>0) {
-             $error[]='<span class="short cut2"> ('.$fetchTitle['title'].')</span> .. لا يمكنك تقديم طلب شراء؛ تم حظرك لعدم جديتك عند تقديم طلبات  لاعلانات سابقة  </span>';
+            if ($fetched>0) {
+             $error[]='<span class="short cut2"> ('.$fetchTitle.')</span> .. لا يمكنك تقديم طلب شراء؛ تم حظرك لعدم جديتك عند تقديم طلبات  لاعلانات سابقة  </span>';
            }
          }
           
@@ -117,8 +118,8 @@ if ($session) {
                       ));
                     
                     if($stmt2){  ?>
-                          <div class='alert alert-success block-green order-form-notice'>
-                            <?php echo '<span class="short cut2">( '.$fetchN['title'].')</span>';?>تم استلام  الطلب ؛سنتصل بكم بعد قليل ؛ احتفظ برقم الكود  لكي تحصل على الخصم   ..رقم الكود: <?php echo '&nbsp;'.$code ?>
+                          <div class='alert alert-success block-green order-form-notice' style="height:50vh;">
+                            <?php echo '<span  class="short cut2">( '.$fetchN['title'].')</span>';?>تم استلام  الطلب ؛سنتصل بكم بعد قليل ؛ احتفظ برقم الكود  لكي تحصل على الخصم   ..رقم الكود: <?php echo '&nbsp;'.$code ?>
                           </div>
                         <?php
                         
@@ -127,11 +128,12 @@ if ($session) {
                          } 
                     
                 }else{ // repeated orders ?>
-                <div>
-                <span class="block2 order-form-notice"> <?php echo '<span class="short cut2">('.$fetchN['title'].')</span>';?>&emsp;تم استلام طلب بخصوص هذا الاعلان وهو  قيد المراجعة؛ سنتصل بكم بعد قليل</span>
+                <div style="height:50vh;">
+                <span  class="block2 order-form-notice"> <?php echo '<span class="short cut2">('.$fetchN['title'].')</span>';?>&emsp;تم استلام طلب بخصوص هذا الاعلان وهو  قيد المراجعة؛ سنتصل بكم بعد قليل</span>
                 </div>
             
-                <?php  }//end else
+                  <?php   unset($_SESSION['cart']);
+                 }//end else
                 }//end for
   	              
           
